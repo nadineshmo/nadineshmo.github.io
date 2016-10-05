@@ -212,9 +212,12 @@ function callback(jsondata, marker) {
 }
 
 function redlineWindow(toPrint, marker) {
-    if (toPrint.length == 0) {var contentString = 'No Trains Available'}
+
+    var contentString = '<h3>' + String(marker.name) + '</h3>';
+
+    if (toPrint.length == 0) {contentString =  contentString + '<p>No Trains Available</p>'}
     else {
-        var contentString = '';
+        
         
         for (i=0; i < toPrint.length; i++) {
             var mins = toPrint[i].sec/60;
