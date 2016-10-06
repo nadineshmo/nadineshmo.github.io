@@ -7,16 +7,56 @@
     <link rel="stylesheet" type="text/css" href="mapstyle.css">
   </head>
   <body>
-    <div id="map"></div>
-   
-   <!--<script src="https://maps.googleapis.com/maps/api/js?&callback=initMap"
-    async defer></script>-->
-   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKkmmC0690vOi7v_rMr2o5b_RXjZm8_yY"></script> 
-    <script src="redstops.js"></script>
-    <script src="map.js"></script>
-    
-    
-    
+        <div id="map">
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKkmmC0690vOi7v_rMr2o5b_RXjZm8_yY"></script> 
+        <script src="redstops.js"></script>
+        <script src="map.js"></script>
+        <script src="menu.js"></script>
+        
+        
+
+<!--Dropdown Menu-->
+            <div class="container overlap">
+                <br>
+                <h3 class="normaltext">Red Line Schedule</h3>
+                <p class="normaltext">  Choose a station from the drop-down menu below or by clicking on the map to see its schedule: </p>
+                  <div class="dropdown">
+                    <button onclick="dropclick()" class="dropbtn">Station..</button>
+                      <div id="myDropdown" class="dropdown-content">
+                      <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                        <a href="#">Alewife</a>
+                        <a href="#">Davis</a>
+                        <a href="#">Porter Square</a>
+                        <a href="#">Harvard Square</a>
+                        <a href="#">Central Square</a>
+                        <a href="#">Kendall/MIT</a>
+                        <a href="#">Charles/MGH</a>
+                        <a href="#">Park Street</a>
+                        <a href="#">Downtown Crossing</a>
+                        <a href="#">South Station</a>
+                        <a href="#">Broadway</a>
+                        <a href="#">Andrew</a>
+                        <a href="#">JFK/UMass</a>
+                        <a href="#">Savin Hill</a>
+                        <a href="#">Fields Corner</a>
+                        <a href="#">Shawmut</a>
+                        <a href="#">Ashmont</a>
+                        <a href="#">North Quincy</a>
+                        <a href="#">Wollaston</a>
+                        <a href="#">Quincy Center</a>
+                        <a href="#">Quincy Adams</a>
+                        <a href="#">Braintree</a>
+
+                      </div>
+                  </div>
+                  <br>
+            </div>
+        </div>
+      
+      <script src="dropdown.js"></script>
+
+
   </body>
 </html>
 

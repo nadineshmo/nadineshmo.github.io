@@ -6,10 +6,13 @@ function initMap() {
           center: {lat: 42.352271, lng: -71.05524200000001},
           zoom: 11
         });
-        placeRedline();
-        placeRedmarkers(); //places redline markers and activates infowindow on click
-        placeMyPin(); //places pin at my location, renders polyline, and activates infowindow on click
     }
+placeRedline();
+var markers = placeRedmarkers(); //places redline markers and 
+                                 //activates infowindow on click
+placeMyPin(); //places pin at my location, renders polyline, and 
+              //activates infowindow on click
+    
 
 function placeRedline() {
 //array of red line stops
@@ -165,9 +168,18 @@ function find_closest_marker(marker) {
     return min;
 }
 
+/* control flow for the following functions:
+* for each redline stop:
+* 1. create marker
+* 2. add onclick event handler that
+* --parses JSON schedule data + puts in sched array
+* (need to do this everytime the user clicks to keep the schedule live)
+* --puts data to be printed in "toPrint array"
+* --formats text in infowindow
+* --displays infowindow
+*/
         
 function placeRedmarkers() {
-
     //make custom symbol
        var circ = {
             path: google.maps.SymbolPath.CIRCLE,
@@ -177,9 +189,8 @@ function placeRedmarkers() {
             strokeColor: '#bf4040',
             strokeWeight: 4
         };
-
 //Set all red line markers
-
+    var markers = [];
     for (i=0; i<redstops.length; i++) {
         var marker = new google.maps.Marker({
             position: redstops[i][1],
@@ -187,17 +198,24 @@ function placeRedmarkers() {
             name: redstops[i][0],
             map: map
         })
+        markers[i] = marker;
         redlineclick(marker);
     };
-
+    return markers;
 }
 
+//stationlink.addlistener(...same)
+//for "marker" 
+
+//handles clicking on one marker
 function redlineclick(marker) {
+    
     marker.addListener('click', function() {
             parse_schedule(callback, marker); //GO TO CALLBACK FXN SORRY. handles the schedule info window
         });
 }
 
+//puts schedule data in an array, then puts the data to be printed in "toPrint" array
 function callback(jsondata, marker) {
     //code that depends on sched
     var sched = convert_to_arr(jsondata); 
@@ -211,13 +229,12 @@ function callback(jsondata, marker) {
     redlineWindow(toPrint, marker);
 }
 
+//formats text to be displayed in infowindow, and opens the infowindow
 function redlineWindow(toPrint, marker) {
-
     var contentString = '<h3>' + String(marker.name) + '</h3>';
 
     if (toPrint.length == 0) {contentString =  contentString + '<p>No Trains Available</p>'}
     else {
-        
         
         for (i=0; i < toPrint.length; i++) {
             var mins = toPrint[i].sec/60;
@@ -231,10 +248,10 @@ function redlineWindow(toPrint, marker) {
     var infowindow = new google.maps.InfoWindow({
             content: contentString
     });
-
     infowindow.open(map, marker);
 }
 
+//reads JSON MBTA schedule data
 function parse_schedule(callback, marker) {
 
     var x = new XMLHttpRequest();
@@ -272,6 +289,10 @@ function convert_to_arr(s) {
 
     return sched;
 }
+
+
+    
+    //console.log(markers[0].name);
 
 
 
