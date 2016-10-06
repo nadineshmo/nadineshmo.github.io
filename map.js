@@ -128,7 +128,7 @@ function showWindow(min, mymarker) {
         var dist = getMiles(min.distance);
         dist = dist.toFixed(2);
 
-        var contentString = '<p>Closest Red Line Station: ' + String(min.station) + '</p>'
+        var contentString = '<h4>You Are Here</h4> <p>Closest Red Line Station: ' + String(min.station) + '</p>'
             + ' <p>Distance: ' + String(dist) + ' miles</p>';
 
         var infowindow = new google.maps.InfoWindow({
