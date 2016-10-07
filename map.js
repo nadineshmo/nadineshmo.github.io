@@ -1,3 +1,39 @@
+/* map.js
+*
+* This file contains a series of functions that
+* display the google map, the red line and stops, the user's geomarker,
+* and allow the infowindows to pop up upon clicking on the redline stops
+* and the user's geomarker.
+*
+* Functions:
+* initMap() - displays the base map, centered in Boston.
+* placeRedline() - creates array of red line stops and uses it to display
+*                   the red line. (Just the line itself, not the circles that 
+*                   represent the stops)
+* placeRedmarkers() - places redline markers (the circles that represent stops)
+*                      and activates infowindows onclick of the markers. Causes
+*                       the following functions to be called for each marker.
+*       * redlineclick(marker) - for one marker, adds click event listener which calls 
+*                       parse_schedule upon click
+*       * parse_schedule(callback, marker) - Sends the XMLHttp request for the live MBTA
+*                                   schedule JSON data. Calls the callback function
+*                                   when the data is ready.
+*       * callback(jsondata, marker) - Converts the jsondata to "toPrint" array to be printed
+*                               in the infowindow                                  
+*       * convert_to_arr(s) - Converts the jsondata to an intermediate array with relevant data
+*       * redlineWindow(toPrint, marker) - formats the schedule info to be displayed in the
+*                                   infowindow and opens the infowindow (this function 
+*                                   is still inside the control flow of the onclick handler)
+* placeMyPin() - places pin at user's location, renders red polyline, and activates
+*                 infowindow on click of the pin
+*       * placemarker() - places marker at user's location
+*       * closestInfo(mymarker, myposition) - draws polyline from user to closest stop,
+*       *                                      activates infowindow on click
+*       * showWindow() - formats text for infowindow and opens infowindow
+*       * getMiles(i) - convert to miles
+*       * find_closest_marker(marker) - returns the closest marker via an object
+*       *                               containing the distance and the station name
+*/
 
 var map;
 initMap();
@@ -155,7 +191,7 @@ function find_closest_marker(marker) {
     min.station = redstops[0][0];
     min.coords = redstops[0][1];
 
-    for (i=0; i<redstops.length; i++) {
+    for (var i=0; i<redstops.length; i++) {
         var dist = google.maps.geometry.
             spherical.computeDistanceBetween(marker.position, redstops[i][1]);
         if (dist < min.distance) {
@@ -191,7 +227,7 @@ function placeRedmarkers() {
         };
 //Set all red line markers
     var markers = [];
-    for (i=0; i<redstops.length; i++) {
+    for (var i=0; i<redstops.length; i++) {
         var marker = new google.maps.Marker({
             position: redstops[i][1],
             icon: circ,
@@ -203,9 +239,6 @@ function placeRedmarkers() {
     };
     return markers;
 }
-
-//stationlink.addlistener(...same)
-//for "marker" 
 
 //handles clicking on one marker
 function redlineclick(marker) {
@@ -221,7 +254,7 @@ function callback(jsondata, marker) {
     var sched = convert_to_arr(jsondata); 
     var toPrint = [];
     //console.log(marker.name);
-    for (i=0; i < sched.length; i++) {
+    for (var i=0; i < sched.length; i++) {
             if (marker.name == sched[i].stop) {
                 toPrint.push(sched[i]);
             };
@@ -236,7 +269,7 @@ function redlineWindow(toPrint, marker) {
     if (toPrint.length == 0) {contentString =  contentString + '<p>No Trains Available</p>'}
     else {
         
-        for (i=0; i < toPrint.length; i++) {
+        for (var i=0; i < toPrint.length; i++) {
             var mins = toPrint[i].sec/60;
             mins = mins.toFixed(0);
 
@@ -276,8 +309,8 @@ function parse_schedule(callback, marker) {
 function convert_to_arr(s) {
     var sched = [];
 
-    for (i = 0; i < s.TripList.Trips.length; i++) {
-        for (j = 0; j < s.TripList.Trips[i].Predictions.length; j++) {
+    for (var i = 0; i < s.TripList.Trips.length; i++) {
+        for (var j = 0; j < s.TripList.Trips[i].Predictions.length; j++) {
             var sched_obj = {};
             sched_obj.dest = s.TripList.Trips[i].Destination;
             sched_obj.stop = s.TripList.Trips[i].Predictions[j].Stop;

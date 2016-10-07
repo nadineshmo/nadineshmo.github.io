@@ -1,3 +1,12 @@
+/* redstops.js
+* This file contains an array containing the red line stops.
+* It is used in find_closest_marker() in map.js to calculate
+* the closest red line stop to the user's current location.
+* Each array element contains the name of the station, and a LatLng
+* object representing the station's position. This LatLng object type is necessary
+* in order to use the computeDistanceBetween() function in map.js.
+*/
+
 var redstops = [	
 
 			['Alewife', new google.maps.LatLng(42.395428, -71.142483)],

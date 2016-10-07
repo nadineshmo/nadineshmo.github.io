@@ -1,7 +1,15 @@
+/* mapstyle.css
+* 
+* This CSS file contains formatting
+* for everything on the map.html webpage
+*
+*/
+
 /* dropdown styling */
-.normaltext {font-family: Helvetica;
-			padding-left: 30px;
-			}
+.normaltext {
+    font-family: Helvetica;
+	padding-left: 30px;
+}
 
 .dropbtn {
     background-color: #4265f4;
@@ -15,6 +23,7 @@
 .dropbtn:hover, .dropbtn:focus {
     background-color: #4265f4;
 }
+
 #myInput {
     background-position: 14px 12px;
     background-repeat: no-repeat;
@@ -25,8 +34,7 @@
 
 .dropdown {
     position: relative;
-    display: inline-block;
-    
+    display: inline-block;   
 }
 
 .dropdown-content {
@@ -36,7 +44,6 @@
     min-width: 230px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-
 }
 
 .dropdown-content a {
@@ -50,26 +57,28 @@
 
 .show {display:block;}
 
+/* map/body styling */
 
 html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
       
-#map {  height: 100%;
-		width: 100%;
-		position:absolute;
-		top:0;
-		left:0;
-		z-index: 1; }
+#map {  
+    height: 100%;
+	width: 100%;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 1; 
+}
 
-.overlap{
+.overlap {
 	position: relative;
 	z-index: 2;
 	background: white;
 	opacity: 0.8;
-	
 }
 
 
