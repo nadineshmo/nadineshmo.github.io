@@ -9,7 +9,6 @@
 *
 */
 
-
 setMenuHandling(markers); 
 
 function setMenuHandling(markers) {
